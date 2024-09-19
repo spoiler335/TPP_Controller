@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class VCameraSwicher : MonoBehaviour
 {
+    [SerializeField] private Canvas freelookCanvas;
+    [SerializeField] private Canvas aimCanvas;
+
+
     private InputManager input => DI.di.input;
     private int priorityBoost = 5;
     private CinemachineVirtualCamera virtualCamera;
@@ -10,6 +14,9 @@ public class VCameraSwicher : MonoBehaviour
     private void Awake()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
+
+        freelookCanvas.enabled = true;
+        aimCanvas.enabled = false;
     }
 
     private void Update()
@@ -23,6 +30,9 @@ public class VCameraSwicher : MonoBehaviour
         // Switch to aim camera
         Debug.Log("Start Aim");
         virtualCamera.Priority += priorityBoost;
+
+        freelookCanvas.enabled = false;
+        aimCanvas.enabled = true;
     }
 
     private void CancelAim()
@@ -30,5 +40,8 @@ public class VCameraSwicher : MonoBehaviour
         // Switch back to freelook camera
         Debug.Log("Cancel Aim");
         virtualCamera.Priority -= priorityBoost;
+
+        freelookCanvas.enabled = true;
+        aimCanvas.enabled = false;
     }
 }
