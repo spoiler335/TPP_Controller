@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private BulletController bulletPrefab;
-    [SerializeField] private Transform barreltransform;
-    [SerializeField] private Transform bulletParent;
+
 
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -14,7 +12,6 @@ public class PlayerController : MonoBehaviour
     private float gravityValue = -9.81f;
     private float rotationSpeed = 5f;
     private Transform cameraTransform;
-    private float bulletMaxAirDistance = 25f;
 
     private InputManager input => DI.di.input;
 
@@ -36,7 +33,6 @@ public class PlayerController : MonoBehaviour
         CheckAndJump();
         BringPlayerOnToGround();
         ControllPlayerRotation();
-        CheckAndFire();
     }
 
     private void BringPlayerOnToGround()
@@ -70,30 +66,5 @@ public class PlayerController : MonoBehaviour
         move.y = 0;
         controller.Move(move * Time.deltaTime * playerSpeed);
         if (move != Vector3.zero) transform.forward = move;
-    }
-
-    private void CheckAndFire()
-    {
-        if (input.isFireClicked)
-        {
-            var bullet = Instantiate(bulletPrefab, barreltransform.position, Quaternion.identity, bulletParent);
-
-            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, Mathf.Infinity))
-            {
-                if (hit.collider.tag == "Player")
-                {
-                    Destroy(bullet);
-                    return;
-                }
-                Debug.Log($"Fired At {hit.collider.name}");
-                bullet.target = hit.point;
-                bullet.hit = true;
-            }
-            else
-            {
-                bullet.target = cameraTransform.position + cameraTransform.forward * bulletMaxAirDistance;
-                bullet.hit = false;
-            }
-        }
     }
 }

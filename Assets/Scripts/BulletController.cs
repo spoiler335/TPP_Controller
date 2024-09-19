@@ -17,7 +17,6 @@ public class BulletController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target, spped * Time.deltaTime);
         if (!hit && Vector3.Distance(transform.position, target) < 0.01f)
             Destroy(gameObject);
-
     }
 
     private void OnCollisionEnter(Collision other)
