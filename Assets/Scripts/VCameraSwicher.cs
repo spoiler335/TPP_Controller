@@ -1,4 +1,4 @@
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class VCameraSwicher : MonoBehaviour
@@ -9,11 +9,11 @@ public class VCameraSwicher : MonoBehaviour
 
     private InputManager input => DI.di.input;
     private int priorityBoost = 5;
-    private CinemachineVirtualCamera virtualCamera;
+    private CinemachineCamera virtualCamera;
 
     private void Awake()
     {
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        virtualCamera = GetComponent<CinemachineCamera>();
 
         freelookCanvas.enabled = true;
         aimCanvas.enabled = false;
@@ -23,6 +23,7 @@ public class VCameraSwicher : MonoBehaviour
     {
         if (input.isAimClicked) StartAim();
         if (input.isAimReleased) CancelAim();
+
     }
 
     private void StartAim()

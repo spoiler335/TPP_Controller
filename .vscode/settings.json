@@ -52,5 +52,5 @@
         "Temp/": true
     },
     "dotnet.preferCSharpExtension": true,
-    "dotnet.defaultSolution": "TPP_Controller.sln"
+    "dotnet.defaultSolution": "TPP_Controller.slnx"
 }
