@@ -11,6 +11,7 @@ public class InputManager
         Debug.Log("Input Enabled");
     }
 
+    public Vector2 moveVec => inputActions.Player.Move.ReadValue<Vector2>(); 
     public float forward => inputActions.Player.Move.ReadValue<Vector2>().x;
     public float right => inputActions.Player.Move.ReadValue<Vector2>().y;
     public bool isJumpClicked => inputActions.Player.Jump.WasPressedThisFrame();
