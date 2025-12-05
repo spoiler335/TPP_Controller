@@ -4,6 +4,7 @@ using UnityEngine.Assertions;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float animationSmoothTime = 0.1f;
+    [SerializeField] private float playTranstionDelay = 0.15f;
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private int moveXId;
     private int moveZId;
+    private int jumpAnimation;
 
     private Vector2 currAnimBlend;
     private Vector2 animVelocity;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
         Assert.IsNotNull(anim);
         moveXId = Animator.StringToHash("MoveX");
         moveZId = Animator.StringToHash("MoveZ");
+        jumpAnimation = Animator.StringToHash("Pistol Jump");
     }
 
     private void Start()
@@ -69,7 +72,10 @@ public class PlayerController : MonoBehaviour
     private void CheckAndJump()
     {
         if (input.isJumpClicked && groundedPlayer)
+        {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            anim.CrossFade(jumpAnimation, playTranstionDelay);
+        }
     }
 
     private void CheckInputAndMovePlayer()
